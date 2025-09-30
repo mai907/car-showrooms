@@ -1,0 +1,73 @@
+ <!-- logo -->
+ <nav class="bg-white shadow-md px-6 py-2 flex items-center justify-between">
+    <div class="flex items-center space-x-2" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="" routerLink="">
+      <img src="assets/images/logo3.png" alt="Logo" class="h-15 w-30">
+      <!-- <span [routerLinkActiveOptions]="{exact:true}" routerLinkActive="" routerLink="" class="font-bold text-xl">Car Showrooms</span> -->
+    </div>
+
+    <!-- <ul id="menu" class="hidden md:flex space-x-3">
+      <li><a [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active" routerLink="list" class="text-gray-700 hover:text-blue-600">Showrroms</a></li>
+    </ul>
+
+    <ul id="menu" class="hidden md:flex space-x-3">
+      <li><a [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active" routerLink="list" class="text-gray-700 hover:text-blue-600">Cars</a></li>
+    </ul> -->
+ <!-- <img src="assets/icons/list.svg" alt="Home" class="w-5 h-5" /> -->
+ <ul id="menu" class="hidden md:flex space-x-12 items-center">
+  <li class="flex items-center space-x-2">
+    <a 
+      [routerLinkActiveOptions]="{exact:true}" 
+      routerLinkActive="active" 
+      routerLink="showroom" 
+      class="font-bold text-[#234C6A] hover:text-[#1d3f59] font-size-100"
+    >
+    Showrroms
+    </a>
+  </li>
+  <li class="flex items-center space-x-2">
+    <a 
+      [routerLinkActiveOptions]="{exact:true}" 
+      routerLinkActive="active" 
+      routerLink="cars" 
+      class="font-bold text-[#234C6A] hover:text-[#1d3f59]"
+    >
+    Cars
+    </a>
+  </li>
+  <li class="flex items-center space-x-2">
+    <a 
+      [routerLinkActiveOptions]="{exact:true}" 
+      routerLinkActive="active" 
+      routerLink="list" 
+      class="font-bold text-[#234C6A] hover:text-[#1d3f59]"
+    >
+      About us
+    </a>
+  </li>
+</ul>
+
+    
+  
+
+<!-- login -->
+<!-- <div id="buttons" class="activeButton">
+  <a 
+    routerLinkActive="activeButton" 
+    routerLink="login">
+    Login
+  </a>
+</div> -->
+
+<div 
+
+routerLink="login"
+class="activeButton mt-2 sm:mt-0 sm:ml-3 relative flex items-center justify-center px-6 py-2.5  text-sm font-bold text-[#234C6A] ">
+  <img src="assets/icons/person.svg" alt="Search" class="absolute left-3 w-8 h-8 filter" />
+  <span class="ml-7">Sign in</span>
+</div>
+
+  </nav>
+  
+
+  
+  

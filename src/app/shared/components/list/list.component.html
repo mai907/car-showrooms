@@ -1,0 +1,122 @@
+<!-- component -->
+
+    <div class="container mx-auto px-4 sm:px-8">
+        <div class="py-8">
+            <div>
+                <h2 class="text-2xl font-semibold leading-tight text-brand-50 text-[#1d3f59]">Car Showroom List</h2>
+            </div>
+    <app-pagination>  
+        <div class="flex flex-col space-y-2 m-6">
+            <!-- Filters rows -->
+            <div class="flex flex-wrap -mx-2">
+              @for(filter of filters; track filter; let id=$index){
+                <div class="w-full sm:w-1/4 px-2 mb-2">
+                  <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                      <img src="assets/icons/filter.svg" alt="Search" class="w-4 h-4 text-gray-500"/>
+                    </span>
+                    <input placeholder="{{filter}}" 
+                           class="w-full pl-8 pr-6 py-2 text-sm text-gray-700 placeholder-gray-400 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#234C6A] focus:border-[#234C6A] focus:outline-none" />
+                  </div>
+                </div>
+              }
+            </div>
+          
+            <!-- Button row -->
+            <div class="flex justify-end">
+              <button class="flex items-center justify-center px-6 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#234C6A] hover:bg-[#1d3f59] focus:ring-2 focus:ring-[#234C6A] focus:outline-none transition-all shadow-md">
+                <span>Apply</span>
+              </button>
+            </div>
+          </div>
+                    
+             </app-pagination>
+              
+
+            <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+                <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                    <table class="min-w-full leading-normal">
+                        <thead>
+                            <tr>
+                                <th
+                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Name
+                                </th>
+                                <th
+                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    CR Number
+                                </th>
+                                <th
+                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Contact Number
+                                </th>
+                                <th
+                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Details
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for(showroom of showroomList; track id; let id=$index){
+                            <tr>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 w-10 h-10">
+                                            <img class="w-full h-full rounded-full"
+                                                src="assets/icons/car.svg"
+                                                alt="" />
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-gray-900 whitespace-no-wrap">
+                                                {{showroom.name}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                    <p class="text-gray-900 whitespace-no-wrap">
+                                        {{showroom.commercialRegistrationNumber}}</p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                    <p class="text-gray-900 whitespace-no-wrap">
+                                        {{showroom.contactNumber}}
+                                    </p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                    <span
+                                        class="relative inline-block px-3 py-1  ">
+                                      
+                                            <div class="flex-shrink-0 w-8 h-8">
+                                                <img class="w-full h-full "
+                                                    src="assets/icons/more3.svg"
+                                                    alt="" />
+                                            </div>
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                           
+                        
+                        </tbody>
+                    </table>
+                    <div
+                        class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
+                        <span class="text-xs xs:text-sm text-gray-900">
+                            Showing {{currentPage}} entries of {{total}} Entries
+                        </span>
+                        <div class="inline-flex mt-2 xs:mt-0">
+                            <button
+                                class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
+                                Prev
+                            </button>
+                            <button
+                                class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- <app-pagination></app-pagination> -->

@@ -1,0 +1,31 @@
+<div class="w-full max-w mx-auto mt-10">
+    <!-- Collapsible Header -->
+    <button 
+      class="w-full flex justify-between items-center px-4 py-3 bg-[#234C6A] text-white font-semibold rounded-md focus:outline-none"
+      (click)="toggleCollapse()"
+    >
+    <!-- filter2.svg -->
+    <span class="flex flex-row">
+        <img src="assets/icons/filter2.svg" alt="Search" class="w-8 h-8 text-gray-500"/>
+      <span class="mt-1 ml-2">Click to Expand</span>
+    </span>
+      
+      <!-- SVG Arrow -->
+      <svg 
+        [attr.class]="'w-5 h-5 transform transition-transform duration-300 ' + (isCollapsed ? 'rotate-180' : '')"
+        fill="none" stroke="currentColor" viewBox="0 0 24 24"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+  
+    <!-- Collapsible Content -->
+    <div 
+      class="overflow-hidden transition-all duration-300 bg-gray-50 rounded-b-md"
+      [ngClass]="isCollapsed ? 'max-h-96' : 'max-h-0'"
+    >
+
+      <ng-content></ng-content>
+    </div>
+  </div>
+  

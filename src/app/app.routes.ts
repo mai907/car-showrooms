@@ -1,10 +1,16 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { ListComponent } from './shared/components/list/list.component';
+import { ShowroomListComponent } from './pages/showroom-list/showroom-list.component';
+import { ShowroomCreateComponent } from './pages/showroom-create/showroom-create.component';
 
 export const routes: Routes = [
     {path:"", component:HomeComponent},
+    {path:"cars", component:ListComponent},
     {path:"login", component:LoginComponent},
+    {path:"showroom", component:ShowroomListComponent},
+    {path:"showroom/:id", component:ShowroomCreateComponent},
     {path:"**", component:PageNotFoundComponent}
 ];
