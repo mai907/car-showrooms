@@ -5,6 +5,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { ListComponent } from './shared/components/list/list.component';
 import { ShowroomListComponent } from './pages/showroom-list/showroom-list.component';
 import { ShowroomCreateComponent } from './pages/showroom-create/showroom-create.component';
+import { ShowroomUpdateComponent } from './pages/showroom-update/showroom-update.component';
 
 export const routes: Routes = [
     {path:"", component:HomeComponent},
@@ -12,5 +13,6 @@ export const routes: Routes = [
     {path:"login", component:LoginComponent},
     {path:"showroom", component:ShowroomListComponent},
     {path:"showroom/:id", component:ShowroomCreateComponent},
+    {path:"showroom/update/:id", component:ShowroomUpdateComponent},
     {path:"**", component:PageNotFoundComponent}
 ];

@@ -1,0 +1,37 @@
+<div class="flex justify-center items-start min-h-screen bg-gray-100 pt-20">
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()"
+          class="flex flex-col bg-white rounded-xl shadow-xl p-10 w-[28rem] border border-gray-200">
+  
+      <!-- Header -->
+      <h2 class="text-2xl font-bold text-[#234C6A] mb-1">{{ type }}</h2>
+      <p class="text-sm text-gray-500 mb-6">
+        Fill the details below to {{ type }} showroom
+      </p>
+  
+      <!-- Dynamic Fields -->
+      <ng-container *ngFor="let field of fields">
+        <label class="font-semibold text-sm mt-4 text-[#234C6A]" [for]="field.name">
+          {{ field.label }}
+        </label>
+        <input
+          [type]="field.type"
+          [formControlName]="field.name"
+          class="flex items-center h-12 px-4 mt-2 rounded bg-gray-200 w-full 
+                 focus:outline-none focus:ring-2 focus:ring-[#234C6A]"
+          [id]="field.name"
+          [placeholder]="field.placeholder || ''"
+        />
+      </ng-container>
+  
+      <!-- Button -->
+      <div class="flex mt-8 justify-end">
+        <button type="submit"
+          class="flex items-center justify-center h-12 rounded font-semibold text-base 
+                 text-white bg-[#234C6A] hover:bg-[#1d3f59] focus:ring-2 focus:ring-[#234C6A] 
+                 transition w-1/2">
+          {{ type }}
+        </button>
+      </div>
+    </form>
+  </div>
+  

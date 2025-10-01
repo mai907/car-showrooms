@@ -47,5 +47,9 @@ export class ShowroomListComponent {
     }
     console.log(this.sortedColumn , this.sortDirection)
   }
+
+  onAction(){
+    console.log("test")
+  }
   
 }
