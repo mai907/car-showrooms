@@ -1,11 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-interface FieldConfig {
-  label: string;
-  type: string;
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
+export interface FieldConfig {
   name: string;
+  label: string;
+  type?: string;
+  controlType: 'input' | 'select';
   placeholder?: string;
+  options?: { id: any, name: string }[]; 
+  validators?: any[];  
 }
 
 
@@ -23,9 +28,34 @@ export class FormComponent {
 
   @Output() submitted = new EventEmitter<any>();
 
-  onSubmit(data:any) {
-    if (this.formGroup.valid) {
-      this.submitted.emit();
-    }
+  isSubmitted = false
+  constructor(private route: ActivatedRoute, private fb: FormBuilder) {}
+  ngOnInit() {
+    const group: any = {};
+    this.fields.forEach(field => {
+      group[field.name] = ['', field.validators || []];
+    });
+    this.formGroup = this.fb.group(group);
   }
+  // ngOnInit() {
+  //   if (this.route.snapshot.url.some(segment => segment.path.toLowerCase() === 'update')) {
+  //     this.isSubmitted = true;
+  //   }
+  // }
+  
+
+  onSubmit(event: Event) {
+    this.isSubmitted = true;
+  
+    if (this.formGroup.invalid) {
+      this.formGroup.markAllAsTouched();
+      return;
+    }
+  
+    // Emit form values to parent
+    this.submitted.emit(this.formGroup.value);
+  }
+  // edit() {
+  //   this.isSubmitted = false;        
+  // }
 }

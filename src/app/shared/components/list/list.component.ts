@@ -1,33 +1,37 @@
 import { Component } from '@angular/core';
 import { PaginationComponent } from '../pagination/pagination.component';
-import { ButtonComponent } from '../button/button.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list',
-  imports: [PaginationComponent, ButtonComponent],
+  imports: [PaginationComponent, RouterLink],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
 export class ListComponent {
-  filters = ["vin", "maker", "year", "yearmodel", "vin", "maker", "year", "yearmodel"]
-  showroomList = [
+  filters = ["vin", "maker", "year", "model", "modelYear", "amount", "carShowroomName", "contactNumber"]
+  carList = [
     
-      {
-          "id": 1,
-          "name": "showroom1",
-          "commercialRegistrationNumber": 1234567890,
-          "mangerName": "tester",
-          "contactNumber": 599867099,
-          "address": "address-home-2"
-      },
-      {
-          "id": 3,
-          "name": "showroom3",
-          "commercialRegistrationNumber": 1234567877,
-          "mangerName": "xy",
-          "contactNumber": 599867093,
-          "address": "address-home"
-      }
+    {
+      "id": 2,
+      "vin": "12332155",
+      "maker": "Hondy",
+      "model": "Creta",
+      "modelYear": 2022,
+      "amount": 200.0,
+      "carShowroomName": "showroom1",
+      "contactNumber": 599867099
+  },
+  {
+      "id": 3,
+      "vin": "12332155",
+      "maker": "Hondy",
+      "model": "Creta",
+      "modelYear": 2022,
+      "amount": 200.0,
+      "carShowroomName": "showroom3",
+      "contactNumber": 599867093
+  }
   
   ]
 

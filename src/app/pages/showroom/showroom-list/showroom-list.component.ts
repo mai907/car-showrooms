@@ -1,10 +1,11 @@
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-showroom-list',
-  imports: [NgClass, RouterLink],
+  imports: [NgClass, RouterLink, PaginationComponent],
   templateUrl: './showroom-list.component.html',
   styleUrl: './showroom-list.component.css'
 })
@@ -37,7 +38,23 @@ export class ShowroomListComponent {
 
   sortedColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
-  
+  items = Array.from({ length: 25 }, (_, i) => `Item ${i + 1}`);
+  pagedItems: string[] = [];
+  pageSize = 5;
+
+  ngOnInit() {
+    this.updatePagedItems();
+  }
+
+  updatePagedItems() {
+    const start = (this.currentPage - 1) * this.pageSize;
+    this.pagedItems = this.items.slice(start, start + this.pageSize);
+  }
+
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.updatePagedItems();
+  }
   sortBy(column: string) {
     if (this.sortedColumn === column) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';

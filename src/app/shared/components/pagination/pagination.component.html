@@ -1,31 +1,23 @@
-<div class="w-full max-w mx-auto mt-10">
-    <!-- Collapsible Header -->
-    <button 
-      class="w-full flex justify-between items-center px-4 py-3 bg-[#234C6A] text-white font-semibold rounded-md focus:outline-none"
-      (click)="toggleCollapse()"
-    >
-    <!-- filter2.svg -->
-    <span class="flex flex-row">
-        <img src="assets/icons/filter2.svg" alt="Search" class="w-8 h-8 text-gray-500"/>
-      <span class="mt-1 ml-2">Click to Expand</span>
-    </span>
-      
-      <!-- SVG Arrow -->
-      <svg 
-        [attr.class]="'w-5 h-5 transform transition-transform duration-300 ' + (isCollapsed ? 'rotate-180' : '')"
-        fill="none" stroke="currentColor" viewBox="0 0 24 24"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-      </svg>
+<div class="flex justify-center items-center space-x-2 mt-4">
+    <button (click)="prev()" [disabled]="currentPage === 1"
+            class="px-3 py-1 rounded border bg-gray-100 hover:bg-[#1d3f59] hover:text-white text-gray-700 disabled:opacity-50">
+      Prev
     </button>
   
-    <!-- Collapsible Content -->
-    <div 
-      class="overflow-hidden transition-all duration-300 bg-gray-50 rounded-b-md"
-      [ngClass]="isCollapsed ? 'max-h-96' : 'max-h-0'"
-    >
+    @for(page of pages; track page){
+       <button 
+            (click)="goToPage(page)"
+            [class.bg-[#234C6A]]="page === currentPage"
+            [class.text-white]="page === currentPage"
+            class="px-3 py-1 rounded border hover:bg-[#1d3f59] hover:text-white text-gray-700">
+      {{ page }}
+    </button>     
+    }
 
-      <ng-content></ng-content>
-    </div>
+
+    <button (click)="next()" [disabled]="currentPage === totalPages"
+    class="px-3 py-1 hover:text-white rounded border bg-gray-100 hover:bg-[#1d3f59] text-gray-700 disabled:opacity-50">
+Next
+</button>
   </div>
   
