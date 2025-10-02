@@ -16,10 +16,10 @@ interface Filter {
   styleUrl: './filters.component.css'
 })
 export class FiltersComponent {
-  isCollapsed = true;
+  isCollapsed = false;
 
  
-  @Input() filters: Filter[] = []; // example: [{ key: 'name', label: 'Name' }, { key: 'city', label: 'City' }]
+  @Input() filters: Filter[] = []; 
   @Output() apply = new EventEmitter<any>();
 
   filtersForm!: FormGroup;
@@ -31,14 +31,12 @@ export class FiltersComponent {
   }
   
   ngOnInit() {
-    // Create form group dynamically based on filters
     const controls: any = {};
     this.filters.forEach(f => controls[f.key] = ['']);
     this.filtersForm = this.fb.group(controls);
   }
 
   applyFilters() {
-    // Emit form values to parent
     this.apply.emit(this.filtersForm.value);
   }
 }

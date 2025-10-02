@@ -6,12 +6,12 @@
   
     @for(page of pages; track page){
        <button 
-            (click)="goToPage(page)"
-            [class.bg-[#234C6A]]="page === currentPage"
-            [class.text-white]="page === currentPage"
-            class="px-3 py-1 rounded border hover:bg-[#1d3f59] hover:text-white text-gray-700">
-      {{ page }}
-    </button>     
+          (click)="goToPage(page)"
+          [class.bg-[#234C6A]]="page === currentPage"
+          [class.text-white]="page === currentPage"
+          class="px-3 py-1 rounded border hover:bg-[#1d3f59] hover:text-white text-gray-700">
+    {{ page }}
+  </button>    
     }
 
 

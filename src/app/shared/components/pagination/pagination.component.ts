@@ -1,39 +1,32 @@
-import { NgClass } from '@angular/common';
+import { NgClass, NgFor } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
-  imports: [NgClass],
+  imports: [NgClass, NgFor],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css'
 })
 export class PaginationComponent {
-  @Input() totalItems: number = 0;    // total items
-  @Input() pageSize: number = 10;     // items per page
-  @Input() currentPage: number = 1;   // current page
+  @Input() totalItems: number = 0;
+  @Input() pageSize: number = 10;
+  @Input() currentPage: number = 1; // 1-based
 
   @Output() pageChange = new EventEmitter<number>();
 
   get totalPages(): number {
-    return Math.ceil(this.totalItems / this.pageSize) || 1; // at least 1 page
+    return Math.ceil(this.totalItems / this.pageSize) || 1;
   }
 
   get pages(): number[] {
     const total = this.totalPages;
-    let start = this.currentPage - 1;  // sliding window start
-    if (start < 1) start = 1;
-    let end = start + 2;               // always 3 pages
-    if (end > total) {
-      end = total;
-      start = Math.max(end - 2, 1);
-    }
-    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+    return Array.from({ length: total }, (_, i) => i + 1);
   }
 
   goToPage(page: number) {
     if (page < 1 || page > this.totalPages) return;
-    this.currentPage = page;
-    this.pageChange.emit(this.currentPage);
+    this.pageChange.emit(page);
+
   }
 
   next() {
@@ -44,3 +37,6 @@ export class PaginationComponent {
     this.goToPage(this.currentPage - 1);
   }
 }
+
+
+

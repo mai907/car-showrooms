@@ -49,14 +49,14 @@
                           <th
                             class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider"
                           >
-                            <div class="flex items-center space-x-1 cursor-pointer" (click)="sortBy('crn')">
+                            <div class="flex items-center space-x-1 cursor-pointer" (click)="sortBy('cmr')">
                               <span>CR Number</span>
                               <svg
                                 class="w-4 h-4 transform transition-transform duration-300"
                                 [ngClass]="{
-                                  'text-blue-500': sortedColumn === 'crn',
-                                  'rotate-180': sortedColumn === 'crn' && sortDirection === 'desc',
-                                  'text-gray-400': sortedColumn !== 'crn'
+                                  'text-blue-500': sortedColumn === 'cmr',
+                                  'rotate-180': sortedColumn === 'cmr' && sortDirection === 'desc',
+                                  'text-gray-400': sortedColumn !== 'cmr'
                                 }"
                                 fill="none"
                                 stroke="currentColor"
@@ -125,9 +125,9 @@
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm cursor-pointer">
                                     <a  class="relative inline-block px-3 py-1">
                                       <div class="flex w-16 h-16 py-4">
-                                        <img class="actions w-8 h-8 cursor-pointer" src="assets/icons/more2.svg" alt="details" routerLink="details/{{showroom.id}}"/>
-                                        <img class="actions w-8 h-8 cursor-pointer" src="assets/icons/edit.svg" alt="update" routerLink="update/{{showroom.id}}"/>
-                                        <img class="actions w-8 h-8 cursor-pointer" src="assets/icons/delete.svg" alt="delete" (click)="openDeleteModal()" />
+                                        <img class="actions w-6 h-6 cursor-pointer" src="assets/icons/more2.svg" alt="details" routerLink="details/{{showroom.id}}"/>
+                                        <img class="actions w-6 h-6 cursor-pointer" src="assets/icons/edit.svg" alt="update" routerLink="update/{{showroom.id}}"/>
+                                        <img class="actions w-6 h-6 cursor-pointer" src="assets/icons/delete.svg" alt="delete" (click)="openDeleteModal(showroom.id)" />
                                       </div>
                                     </a>
                                   </td>
@@ -142,7 +142,7 @@
                 <div
                     class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
                     <app-pagination
-      [totalItems]="items.length"
+      [totalItems]="totalElements"
       [pageSize]="pageSize"
       [currentPage]="currentPage"
       (pageChange)="onPageChange($event)">

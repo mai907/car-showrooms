@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ShowroomService } from '../../../services/showroom.service';
+import { Showroom } from '../../../shared/models/showroom';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-showroom-details',
@@ -8,17 +11,31 @@ import { Router } from '@angular/router';
   styleUrl: './showroom-details.component.css'
 })
 export class ShowroomDetailsComponent {
-  constructor(private router: Router) {}
+ data = {} as Showroom; 
 
-data = {
-    "id": 1,
-    "name": "showroom1",
-    "commercialRegistrationNumber": 1234567890,
-    "mangerName": "tester",
-    "contactNumber": 599867099,
-    "address": "address-home-2"
-}
+  constructor(private router: Router,
+     private showroomService:ShowroomService,
+    private route: ActivatedRoute,
+    private toastService: ToastService
+  ) {}
 
+
+  ngOnInit(){
+    const id = this.route.snapshot.paramMap.get('id') || '';
+    this.showroomService.getShowroom(id).subscribe( {
+      next:(response) =>{
+        this.data = response   
+      },
+     error: (err) => {
+        let error = err?.error?.message as string
+        console.error('Error happened', err);
+        this.toastService.show(error || "Somthing went wrong", 'error');
+      }
+ 
+  }
+
+);
+  }
 
   submitData(values:any) {
     console.log("alll",values);

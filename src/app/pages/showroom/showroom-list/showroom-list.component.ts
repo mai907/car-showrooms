@@ -1,7 +1,10 @@
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { ShowroomService } from '../../../services/showroom.service';
+import { Showroom } from '../../../shared/models/showroom';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-showroom-list',
@@ -11,65 +14,68 @@ import { PaginationComponent } from '../../../shared/components/pagination/pagin
 })
 export class ShowroomListComponent {
   filters = ["vin", "maker", "year", "yearmodel", "vin", "maker", "year", "yearmodel"]
-  showroomList = [
-    
-      {
-          "id": 1,
-          "name": "showroom1",
-          "commercialRegistrationNumber": 1234567890,
-          "mangerName": "tester",
-          "contactNumber": 599867099,
-          "address": "address-home-2"
-      },
-      {
-          "id": 3,
-          "name": "showroom3",
-          "commercialRegistrationNumber": 1234567877,
-          "mangerName": "xy",
-          "contactNumber": 599867093,
-          "address": "address-home"
-      }
-  
-  ]
+  showroomList:Showroom[] = []
+  showroomId = ''
 
   currentPage = 1;
-  total = 50;
+  totalElements = 0;
+  totalPages=1;
   isSorted = false;
 
   sortedColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
-  items = Array.from({ length: 25 }, (_, i) => `Item ${i + 1}`);
-  pagedItems: string[] = [];
   pageSize = 5;
 
   showDeleteModal = false;
 
-openDeleteModal() {
+  constructor(private showroomService:ShowroomService,
+        private toastService: ToastService,
+        private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(){  
+  this.fetchItems(this.currentPage, this.pageSize);
+  }
+
+openDeleteModal(id: number) {
+  console.log("sdfghjkl;",id)
+  this.showroomId = id + '';
   this.showDeleteModal = true;
 }
 
 confirmDelete() {
-  this.showDeleteModal = false;
-  console.log('deleted');
+  
+  this.showroomService.delteShowroom(this.showroomId).subscribe({
+      next: (response) => {
+        this.toastService.show('Success: Showroom deleted', 'info');
+      },
+      error: (err) => {
+        let error = err?.error?.message as string
+        console.error('Error happened', err);
+        this.toastService.show(error || "Somthing went wrong", 'error');
+      }
+    })
+    this.showDeleteModal = false;
 }
 
 cancelDelete() {
   this.showDeleteModal = false;
+  this.showroomId = '';
+}
+  fetchItems(page: number, size: number, sortBy:string ='name', sortDir:string ='asc') {
+    this.showroomService.getShowrooms(page,size,sortBy,sortDir).subscribe(response => {
+    console.log("data::::::::::",response)
+    this.showroomList = response.content;
+    this.pageSize = response.size;
+    this.totalElements = response.totalElements;
+  });
 }
 
 
-  ngOnInit() {
-    this.updatePagedItems();
-  }
-
-  updatePagedItems() {
-    const start = (this.currentPage - 1) * this.pageSize;
-    this.pagedItems = this.items.slice(start, start + this.pageSize);
-  }
 
   onPageChange(page: number) {
     this.currentPage = page;
-    this.updatePagedItems();
+    this.fetchItems(page, this.pageSize);
   }
   sortBy(column: string) {
     if (this.sortedColumn === column) {
@@ -78,7 +84,8 @@ cancelDelete() {
       this.sortedColumn = column;
       this.sortDirection = 'asc';
     }
-    console.log(this.sortedColumn , this.sortDirection)
+        this.fetchItems(this.currentPage, this.pageSize, this.sortedColumn , this.sortDirection);
+
   }
 
   onAction(){

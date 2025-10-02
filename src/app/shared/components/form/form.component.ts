@@ -2,16 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { FieldConfig } from '../../models/fieldFormConfig';
 
-export interface FieldConfig {
-  name: string;
-  label: string;
-  type?: string;
-  controlType: 'input' | 'select';
-  placeholder?: string;
-  options?: { id: any, name: string }[]; 
-  validators?: any[];  
-}
+
 
 
 @Component({

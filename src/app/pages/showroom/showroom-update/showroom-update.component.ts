@@ -1,18 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms'
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { FormComponent } from '../../../shared/components/form/form.component';
-// import { ShowroomService } from '../../../services/showroom.service';
+import { ShowroomService } from '../../../services/showroom.service';
+import { FieldConfig } from '../../../shared/models/fieldFormConfig';
+import { ToastService } from '../../../services/toast.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
-export interface FieldConfig {
-  name: string;
-  label: string;
-  type?: string;
-  controlType: 'input' | 'select';
-  placeholder?: string;
-  options?: { id: any, name: string }[]; 
-  validators?: any[];  
-}
+
 @Component({
   selector: 'app-showroom-update',
   imports: [ReactiveFormsModule, CommonModule, FormComponent],
@@ -21,11 +16,12 @@ export interface FieldConfig {
 })
 export class ShowroomUpdateComponent {
   formGroup: FormGroup = new FormGroup({});
-  isUpdated=false;
-  
-  fields:FieldConfig[] = [
+  isUpdated = false;
+  showroomId = ''
+
+  fields: FieldConfig[] = [
     {
-      name: 'manager_name',
+      name: 'mangerName',
       label: 'Manager Name',
       type: 'text',
       controlType: 'input',
@@ -35,14 +31,14 @@ export class ShowroomUpdateComponent {
       ]
     },
     {
-      name: 'contact_number',
+      name: 'contactNumber',
       label: 'Contact Number',
       type: 'number',
       controlType: 'input',
       placeholder: 'Enter phone number',
       validators: [
         Validators.required,
-        Validators.pattern(/^\d{1,15}$/) 
+        Validators.pattern(/^\d{1,15}$/)
       ]
     },
     {
@@ -52,38 +48,39 @@ export class ShowroomUpdateComponent {
       controlType: 'input',
       placeholder: 'Enter address',
       validators: [
-        Validators.maxLength(255) 
+        Validators.maxLength(255)
       ]
     }
   ];
-  data = {
-    "id": 1,
-    "name": "showroom1",
-    "commercialRegistrationNumber": 1234567890,
-    "mangerName": "tester",
-    "contactNumber": 599867099,
-    "address": "address-home-2"
-}
 
 
-  constructor(private fb: FormBuilder) {}
+
+  constructor(private fb: FormBuilder,
+    private showroomService: ShowroomService,
+    private route: ActivatedRoute,
+    private toastService: ToastService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.createForm();
+    this.showroomId = this.route.snapshot.paramMap.get('id') || '';
+    this.showroomService.getShowroom(this.showroomId).subscribe({
+      next: (responses) => {
+        this.formGroup.patchValue({
+          mangerName: responses.mangerName || '',
+          contactNumber: responses.contactNumber || '',
+          address: responses.address || '',
+        });
+      },
+      error: (err) => {
+        let error = err?.error?.message as string
+        console.error('Error happened', err);
+        this.toastService.show(error || "Somthing went wrong", 'error');
+      }
 
-      this.formGroup.patchValue({
-        manager_name: this.data.mangerName || '',
-        contact_number: this.data.contactNumber || '',
-        address: this.data.address || '',
-      });
-    // const showroomId = 1; 
-    // this.showroomService.getShowroom(showroomId).subscribe((data) => {
-    //   this.formGroup.patchValue({
-    //     manager_name: data.mangerName || '',
-    //     contact_number: data.contactNumber || '',
-    //     address: data.address || '',
-    //   });
-    // });
+
+    });
   }
 
   createForm() {
@@ -94,8 +91,19 @@ export class ShowroomUpdateComponent {
     this.formGroup = this.fb.group(group);
   }
 
-  submitData(values:any) {
-    console.log("alll",values);
+  submitData(values: any) {
+    console.log("alll", values);
+        this.showroomService.updateShowroom(this.showroomId, values).subscribe({
+      next: (response) => {
+        this.toastService.show('Success: Showroom updated', 'info');
+        this.router.navigate(['/showroom']);
+      },
+      error: (err) => {
+        let error = err?.error?.message as string
+        console.error('Error happened', err);
+        this.toastService.show(error || "Somthing went wrong", 'error');
+      }
+    })
   }
 
 }

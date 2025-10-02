@@ -114,7 +114,7 @@
                 <div
                     class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
                     <app-pagination
-      [totalItems]="items.length"
+      [totalItems]="totalElements"
       [pageSize]="pageSize"
       [currentPage]="currentPage"
       (pageChange)="onPageChange($event)">

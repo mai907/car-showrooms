@@ -1,23 +1,16 @@
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
 import { FormComponent } from "../../../shared/components/form/form.component";
+import { FieldConfig } from "../../../shared/models/fieldFormConfig";
+import { ToastService } from "../../../services/toast.service";
+import { ShowroomService } from "../../../services/showroom.service";
+import { Router } from "@angular/router";
 
-export interface FieldConfig {
-  name: string;
-  label: string;
-  type?: string;
-  controlType: 'input' | 'select';
-  placeholder?: string;
-  options?: { id: any, name: string }[]; 
-  validators?: any[];  
-}
+
 @Component({
   selector: "app-showroom-create",
   imports: [ReactiveFormsModule, CommonModule, FormComponent],
@@ -39,7 +32,7 @@ export class ShowroomCreateComponent {
       ]
     },
     {
-      name: 'commercial_registration_number',
+      name: 'commercialRegistrationNumber',
       label: 'CR Number',
       type: 'number',
       controlType: 'input',
@@ -50,7 +43,7 @@ export class ShowroomCreateComponent {
       ]
     },
     {
-      name: 'manager_name',
+      name: 'mangerName',
       label: 'Manager Name',
       type: 'text',
       controlType: 'input',
@@ -60,14 +53,14 @@ export class ShowroomCreateComponent {
       ]
     },
     {
-      name: 'contact_number',
+      name: 'contactNumber',
       label: 'Contact Number',
       type: 'number',
       controlType: 'input',
       placeholder: 'Enter phone number',
       validators: [
         Validators.required,
-        Validators.pattern(/^\d{1,15}$/) 
+        Validators.pattern(/^\d{1,15}$/)
       ]
     },
     {
@@ -77,15 +70,28 @@ export class ShowroomCreateComponent {
       controlType: 'input',
       placeholder: 'Enter address',
       validators: [
-        Validators.maxLength(255) 
+        Validators.maxLength(255)
       ]
     }
   ];
-  
+
+  constructor(private toastService: ToastService, private showroomService: ShowroomService, private router: Router) { }
 
 
 
   submitData(data: any) {
     console.log("submited form", data);
+    this.showroomService.createShowroom(data).subscribe({
+      next: (response) => {
+        this.toastService.show('Success: Showroom created', 'info');
+        this.router.navigate(['/showroom']);
+      },
+      error: (err) => {
+        let error = err?.error?.message as string
+        console.error('Error happened', err);
+        this.toastService.show(error || "Somthing went wrong", 'error');
+      }
+    })
+
   }
 }
