@@ -7,6 +7,7 @@ import { ShowroomCreateComponent } from './pages/showroom/showroom-create/showro
 import { ShowroomUpdateComponent } from './pages/showroom/showroom-update/showroom-update.component';
 import { CarCreateComponent } from './pages/car/car-create/car-create.component';
 import { CarListComponent } from './pages/car/car-list/car-list.component';
+import { ShowroomDetailsComponent } from './pages/showroom/showroom-details/showroom-details.component';
 
 export const routes: Routes = [
     {path:"", component:HomeComponent},
@@ -15,6 +16,7 @@ export const routes: Routes = [
     {path:"showroom", component:ShowroomListComponent},
     {path:"cars/create", component:CarCreateComponent},
     {path:"showroom/create", component:ShowroomCreateComponent},
+    {path:"showroom/details/:id", component:ShowroomDetailsComponent},
     {path:"showroom/update/:id", component:ShowroomUpdateComponent},
     {path:"**", component:PageNotFoundComponent}
 ];

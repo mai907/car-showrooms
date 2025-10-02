@@ -1,0 +1,49 @@
+<div class="flex justify-center items-start min-h-screen bg-gray-100 pt-20">
+    <div class="flex flex-col bg-white rounded-2xl shadow-xl p-12 w-[28rem] border border-gray-200">
+  
+      <!-- Header -->
+      <h2 class="text-2xl font-bold text-[#234C6A] mb-2 text-center">Details</h2>
+  
+      <!-- Name -->
+      <div class="mb-4">
+        <h3 class="font-extrabold text-[#234C6A]">Name</h3>
+        <p class="text-gray-900 mt-1">{{ data.name || '-' }}</p>
+      </div>
+  
+      <!-- CR Number -->
+      <div class="mb-4">
+        <h3 class="font-extrabold text-[#234C6A]">CR Number</h3>
+        <p class="text-gray-900 mt-1">{{ data.commercialRegistrationNumber || '-' }}</p>
+      </div>
+  
+      <!-- Manager Name -->
+      <div class="mb-4">
+        <h3 class="font-extrabold text-[#234C6A]">Manager Name</h3>
+        <p class="text-gray-900 mt-1">{{ data.mangerName || '-' }}</p>
+      </div>
+  
+      <!-- Contact Number -->
+      <div class="mb-4">
+        <h3 class="font-extrabold text-[#234C6A]">Contact Number</h3>
+        <p class="text-gray-900 mt-1">{{ data.contactNumber || '-' }}</p>
+      </div>
+  
+      <!-- Address -->
+      <div class="mb-4">
+        <h3 class="font-extrabold text-[#234C6A]">Address</h3>
+        <p class="text-gray-900 mt-1">{{ data.address || '-' }}</p>
+      </div>
+  
+      <!-- Edit Button -->
+      <div class="flex mt-8 justify-center">
+        <button (click)="edit()"
+                class="h-12 px-6 rounded-lg font-semibold text-base text-[#234C6A] border border-[#234C6A] 
+                       bg-white hover:bg-[#234C6A] hover:text-white transition-shadow shadow-md">
+          Edit
+        </button>
+      </div>
+      
+  
+    </div>
+  </div>
+  

@@ -42,6 +42,22 @@ export class ShowroomListComponent {
   pagedItems: string[] = [];
   pageSize = 5;
 
+  showDeleteModal = false;
+
+openDeleteModal() {
+  this.showDeleteModal = true;
+}
+
+confirmDelete() {
+  this.showDeleteModal = false;
+  console.log('deleted');
+}
+
+cancelDelete() {
+  this.showDeleteModal = false;
+}
+
+
   ngOnInit() {
     this.updatePagedItems();
   }

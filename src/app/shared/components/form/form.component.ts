@@ -25,23 +25,21 @@ export class FormComponent {
   @Input() type: string = 'Submit';
   @Input() formGroup!: FormGroup;
   @Input() fields: FieldConfig[] = [];
-
   @Output() submitted = new EventEmitter<any>();
 
   isSubmitted = false
   constructor(private route: ActivatedRoute, private fb: FormBuilder) {}
   ngOnInit() {
+    if (!this.formGroup) {
     const group: any = {};
     this.fields.forEach(field => {
       group[field.name] = ['', field.validators || []];
     });
     this.formGroup = this.fb.group(group);
   }
-  // ngOnInit() {
-  //   if (this.route.snapshot.url.some(segment => segment.path.toLowerCase() === 'update')) {
-  //     this.isSubmitted = true;
-  //   }
-  // }
+  }
+
+ 
   
 
   onSubmit(event: Event) {
