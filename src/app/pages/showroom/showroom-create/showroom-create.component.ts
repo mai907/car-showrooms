@@ -75,7 +75,9 @@ export class ShowroomCreateComponent {
     }
   ];
 
-  constructor(private toastService: ToastService, private showroomService: ShowroomService, private router: Router) { }
+  constructor(private toastService: ToastService,
+     private showroomService: ShowroomService,
+      private router: Router) { }
 
 
 

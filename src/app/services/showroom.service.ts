@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { api } from './api';
-import { DOCUMENT } from '@angular/common';
 import { Showroom } from '../shared/models/showroom';
 
 @Injectable({
@@ -10,11 +9,20 @@ import { Showroom } from '../shared/models/showroom';
 })
 export class ShowroomService {
 
-  // constructor(@Inject(DOCUMENT) private document: Document,private http: HttpClient) {}
   constructor(private http: HttpClient) {}
 
+
+
   getShowrooms(page: number = 1, size: number =5, sortBy:string ='name', sortDir:string ='asc' ): Observable<any> {
-    return this.http.get<any>( api.apiBaseUrl + `showroom?pageNo=${page}&pageSize=${size}&sortBy=${sortBy}&sortDir=${sortDir}`);
+    
+  const storedUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+const username = storedUser.username;
+const password = storedUser.password;
+
+    const headers = new HttpHeaders({
+      Authorization: 'Basic ' + btoa(username + ':' + password)
+    });
+    return this.http.get<any>( api.apiBaseUrl + `showroom?pageNo=${page}&pageSize=${size}&sortBy=${sortBy}&sortDir=${sortDir}`,{headers});
   }
 
   getShowroom(id: string): Observable<Showroom> {
@@ -36,4 +44,6 @@ export class ShowroomService {
       listShowroom(): Observable<Showroom[]> {
     return this.http.get<Showroom[]>( api.apiBaseUrl + `showroom/list`);
   }
+
+
 }

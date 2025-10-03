@@ -8,15 +8,36 @@ import { ShowroomUpdateComponent } from './pages/showroom/showroom-update/showro
 import { CarCreateComponent } from './pages/car/car-create/car-create.component';
 import { CarListComponent } from './pages/car/car-list/car-list.component';
 import { ShowroomDetailsComponent } from './pages/showroom/showroom-details/showroom-details.component';
+import { RoleGuard } from './services/role.guard';
+import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 
 export const routes: Routes = [
-    {path:"", component:HomeComponent},
-    {path:"cars", component:CarListComponent},
-    {path:"login", component:LoginComponent},
-    {path:"showroom", component:ShowroomListComponent},
-    {path:"cars/create", component:CarCreateComponent},
-    {path:"showroom/create", component:ShowroomCreateComponent},
-    {path:"showroom/details/:id", component:ShowroomDetailsComponent},
-    {path:"showroom/update/:id", component:ShowroomUpdateComponent},
-    {path:"**", component:PageNotFoundComponent}
+    { path: "", component: HomeComponent },
+    { path: "login", component: LoginComponent },
+
+    {
+        path: "cars", component: CarListComponent, canActivate: [RoleGuard],
+        data: { roles: ['ROLE_USER', 'ROLE_ADMIN'] }
+    },
+
+    {
+        path: "showroom", component: ShowroomListComponent, canActivate: [RoleGuard],
+        data: { roles: ['ROLE_USER', 'ROLE_ADMIN'] }
+    },
+    { path: "unauthorized", component: UnauthorizedComponent },
+    { path: "aboutus", component: PageNotFoundComponent },
+    {
+        path: "cars/create", component: CarCreateComponent, canActivate: [RoleGuard],
+        data: { roles: ['ROLE_ADMIN'] }
+    },
+    {
+        path: "showroom/create", component: ShowroomCreateComponent, canActivate: [RoleGuard],
+        data: { roles: ['ROLE_ADMIN'] }
+    },
+    { path: "showroom/details/:id", component: ShowroomDetailsComponent },
+    {
+        path: "showroom/update/:id", component: ShowroomUpdateComponent, canActivate: [RoleGuard],
+        data: { roles: ['ROLE_ADMIN'] }
+    },
+    { path: "**", redirectTo: '', component: PageNotFoundComponent }
 ];

@@ -1,0 +1,83 @@
+.error-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f3f4f6; /* subtle gray background */
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  background: #ffffff;
+  padding: 40px 50px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.text {
+  max-width: 350px;
+}
+
+/* 🔴 Change header color */
+.text h1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #1B3C53; /* blue-600 (modern) */
+}
+
+.text p {
+  margin-bottom: 25px;
+  font-size: 16px;
+  color: #4b5563; /* gray-700 */
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+}
+
+/* 🔘 Buttons */
+.actions button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+/* Primary button */
+.actions button:first-child {
+  background: linear-gradient(90deg, #3b82f6, #1B3C53); /* gradient blue */
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+.actions button:first-child:hover {
+  background: linear-gradient(90deg, #1B3C53, #1e40af);
+  transform: translateY(-2px);
+}
+
+/* Secondary button */
+.actions button:last-child {
+  background: #ffffff;
+  color: #1B3C53;
+  border: 2px solid #1B3C53;
+}
+
+.actions button:last-child:hover {
+  background: #eff6ff;
+  transform: translateY(-2px);
+}
+
+.image img {
+  width: 240px;
+  height: 240px;
+  object-fit: contain;
+}

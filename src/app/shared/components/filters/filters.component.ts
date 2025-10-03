@@ -1,7 +1,6 @@
 import { CommonModule, NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FormComponent } from '../form/form.component';
 
 
 interface Filter {
@@ -11,7 +10,7 @@ interface Filter {
 
 @Component({
   selector: 'app-filters',
-  imports: [NgClass,ReactiveFormsModule, CommonModule, FormComponent],
+  imports: [NgClass,ReactiveFormsModule, CommonModule],
   templateUrl: './filters.component.html',
   styleUrl: './filters.component.css'
 })

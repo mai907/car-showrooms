@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, View
 
 @Component({
   selector: 'app-pagination',
-  imports: [NgClass, NgFor],
+  imports: [],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css'
 })

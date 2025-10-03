@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { ErrorPageComponent } from '../../shared/components/error-page/error-page.component';
 
 @Component({
-  selector: 'app-page-not-found',
+  selector: 'app-unauthorized',
   imports: [ErrorPageComponent],
-  templateUrl: './page-not-found.component.html',
-  styleUrl: './page-not-found.component.css'
+  templateUrl: './unauthorized.component.html',
+  styleUrl: './unauthorized.component.css'
 })
-export class PageNotFoundComponent {
+export class UnauthorizedComponent {
 
 }
